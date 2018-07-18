@@ -10,12 +10,19 @@
             })
             .catch(err=>{console.log(err)});        }
         
-        self.saveUser = function(userData){
+        self.updateUser = function(userData){
           return $http.put('http://localhost:3000/contacts/'+userData.id,userData)
            .then(response=>{
                console.log(response);
            }) ;
         }
+
+        self.createUser = function(userData){
+            return $http.post('http://localhost:3000/contacts/',userData)
+             .then(response=>{
+                 console.log(response);
+             }) ;
+          }
 
        
     });

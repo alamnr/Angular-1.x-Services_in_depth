@@ -7,6 +7,7 @@
         var self = this;
 
         self.editMode = false;
+        self.addMode = false;
 
          ContactDataSVC.getContacts()
         .then(data=>{
@@ -33,13 +34,35 @@
         this.saveUser = function(){
             this.toggleEditMode();
             var userData = this.selectedContact;
-            ContactDataSVC.saveUser(userData)
-            .then(function(){
-                self.successMsg = 'Data successfully updated';
-            })
-            .catch(err=>{
-                self.errMsg = 'Failed to update';
-            });
+            if(self.addMode){
+                ContactDataSVC.createUser(userData)
+                .then(function(){
+                    self.successMsg = 'Data successfully saved';
+                })
+                .catch(err=>{
+                    self.errMsg = 'There was an error, pls try again.';
+                });
+                self.addMode = false;
+
+            }
+            else{
+                ContactDataSVC.updateUser(userData)
+                .then(function(){
+                    self.successMsg = 'Data successfully updated';
+                })
+                .catch(err=>{
+                    self.errMsg = 'There was an error, pls try again.';
+                });
+            }
+           
+        }
+
+        this.addContact = function(){
+            self.addMode = true;
+            this.selectedContact = {
+                id:new Date().toTimeString()
+            };
+            this.editMode = true;
         }
 
     } );
