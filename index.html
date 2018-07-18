@@ -44,6 +44,9 @@
 
 
             <div class="col-md-6">
+                <div class="alert alert-success"  ng-if="ctrl.successMsg">{{ctrl.successMsg}}</div>
+                <div class="alert alert-danger"  ng-if="ctrl.errMsg">{{ctrl.errMsg}}</div>
+                
                 <div ng-show="ctrl.selectedContact" class="media">
                     <div class="media-left">
                         <img class="mr-3" src="{{ctrl.selectedContact.picture.medium}}" alt="Generic placeholder image">
