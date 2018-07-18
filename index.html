@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="js/angular-1.7.js"></script>
-       
-   <script src="js/app.js"></script>
+
+    <script src="js/app.js"></script>
     <script src="js/appName.service.js"></script>
     <script src="js/appConfig.service.js"></script>
     <script src="js/contact.controller.js"></script>
@@ -16,49 +16,79 @@
     <link rel="stylesheet" href="css/bootstrap.min.css">
 
     <title>Contact App</title>
+
+    <style>
+     *{
+         margin: 0;
+         padding: 0;
+     }
+     
+    </style>
 </head>
 
 <body>
-    
-   
+
+
     <div class="container" ng-controller="ContactCtrl as ctrl">
         <div class="row">
-            <ul class="list-group">
+            <dir class="col-md-6">
+
+                <ul class="list-group">
+                    <li class="list-group-item" ng-repeat="contact in ctrl.contacts" ng-click="ctrl.selectContact($index)">
+                        <span>{{contact.name.first +' '+contact.name.last }}</span>
+                    </li>
+
+                </ul>
+
+            </dir>
 
 
-                <li class="list-group-item" ng-repeat="contact in ctrl.contacts" ng-click="ctrl.selectContact($index)">
-                    <span>{{contact.name.first +' '+contact.name.last }}</span>
-                </li>
+            <div class="col-md-6">
+                <div ng-show="ctrl.selectedContact" class="media">
+                    <div class="media-left">
+                        <img class="mr-3" src="{{ctrl.selectedContact.picture.medium}}" alt="Generic placeholder image">
+                    </div>
 
-
-
-            </ul>
-
-        </div>
-        <div class="row">
-            <div ng-show="ctrl.selectedContact" class="media">
-                <div class="media-left">
-                    <img class="mr-3" src="{{ctrl.selectedContact.picture.medium}}" alt="Generic placeholder image">
+                    <div class="media-body">
+                        <h5 class="media-heading">{{ctrl.selectedContact.name.first + ' ' + ctrl.selectedContact.name.last}}</h5>
+                        <button ng-hide="ctrl.editMode" ng-click="ctrl.toggleEditMode()">Edit</button>
+                        <button ng-show="ctrl.editMode" ng-click="ctrl.saveUser()">Save</button>
+                        <div>
+                            <p>
+                                <h6>Location</h6>
+                            </p>
+                            <p>
+                                <span>Street :</span>
+                                <span ng-hide="ctrl.editMode">{{ctrl.selectedContact.location.street }}</span>
+                                <input type="text" ng-show="ctrl.editMode" ng-model="ctrl.selectedContact.location.street" >
+                            </p>
+                            <p>
+                                    <span>City :</span>
+                                    <span ng-hide="ctrl.editMode">{{ ctrl.selectedContact.location.city}}</span>
+                                    <input type="text" ng-show="ctrl.editMode" ng-model="ctrl.selectedContact.location.city" >
+                                </p>
+                                <p>
+                                        <span>State :</span>
+                                        <span ng-hide="ctrl.editMode">{{ctrl.selectedContact.location.state}}</span>
+                                        <input type="text" ng-show="ctrl.editMode" ng-model="ctrl.selectedContact.location.state">
+                                    </p>
+                        </div>
+                        <div>
+                            <span>Phone :</span>
+                            <span ng-hide="ctrl.editMode">{{ctrl.selectedContact.cell}}</span>
+                            <input type="text" ng-show="ctrl.editMode" ng-model="ctrl.selectedContact.cell">
+                        </div>
+                    </div>
                 </div>
 
-                <div  class="media-body">
-                    <h5 class="media-heading">{{ctrl.selectedContact.name.first + ' ' + ctrl.selectedContact.name.last}}</h5>
-                    <div>
-                        <h6>Location</h6>
-                        <p>{{ctrl.selectedContact.location.street +' ' + ctrl.selectedContact.location.city+' '+ctrl.selectedContact.location.state}}</p>
-                    </div>
-                    <div>
-                        <h6>Phone</h6>
-                        <p>{{ctrl.selectedContact.cell}}</p>
-                    </div>
-                </div>
             </div>
 
         </div>
 
+
     </div>
 
-   
+
 </body>
 
 </html>
