@@ -1055,14 +1055,25 @@ app.controller('ContactCtrl', function () {
     
 });
 
-app.controller('HeaderCtrl',function(AppNameSvc){
-  this.appTitle = AppNameSvc;
+app.controller('HeaderCtrl',function(AppDataSvc,LoggingSvc){
+  this.appTitle = AppDataSvc.name;
+  LoggingSvc();
 });
 
-app.controller('FooterCtrl',function(AppNameSvc){
-  this.appTitle = AppNameSvc;
-
+app.controller('FooterCtrl',function(AppDataSvc,LoggingSvc){
+  this.appTitle = AppDataSvc.name;
+  LoggingSvc();
 });
 
 // value service
-app.value('AppNameSvc','Contact App');
+//app.value('AppNameSvc','Contact App');
+app.value('AppDataSvc',{
+  name:'Contact App',
+  author:'Koushik',
+  company:'Java Brains',
+  version:1
+});
+
+app.value('LoggingSvc',function(){
+  console.log('Hello');
+});
