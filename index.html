@@ -14,7 +14,11 @@
 </head>
 
 <body>
-    <h1>My Contact App</h1>
+    
+    <div ng-controller="HeaderCtrl as head">
+        <h1>{{head.appTitle}}</h1>
+    </div>
+
     <div class="container" ng-controller="ContactCtrl as ctrl">
         <div class="row">
             <ul class="list-group">
@@ -52,6 +56,9 @@
 
     </div>
 
+    <div ng-controller="FooterCtrl as foot">
+        <h1><h1>{{foot.appTitle}}</h1></h1>
+    </div>
 </body>
 
 </html>

@@ -1054,3 +1054,15 @@ app.controller('ContactCtrl', function () {
       };
     
 });
+
+app.controller('HeaderCtrl',function(AppNameSvc){
+  this.appTitle = AppNameSvc;
+});
+
+app.controller('FooterCtrl',function(AppNameSvc){
+  this.appTitle = AppNameSvc;
+
+});
+
+// value service
+app.value('AppNameSvc','Contact App');
