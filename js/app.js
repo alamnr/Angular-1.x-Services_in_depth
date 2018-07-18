@@ -1090,7 +1090,19 @@ app.controller('FooterCtrl',function(AppDataFactorySvc){
 //   version:1
 // });
 
+function AppConfig(AppNameSvc){
+  // var this ={};
+  this.name= AppNameSvc;
+  this.author='Koushik';
+  this.company = 'Java Brains';
+  this.buildDate = new Date().toDateString();
+
+  // return this;
+}
+
 app.value('AppDataSvc',prepareAppConfig());
+
+
 
 app.value('LoggingSvc',function(){
   console.log('Hello');
@@ -1109,7 +1121,14 @@ app.value('AppNameSvc','New Contact  App');
 //   };
 // });
 
-app.factory('AppDataFactorySvc',prepareAppConfig);
+
+// angular factory service factory fac function in normal mode
+// more control on object building
+app.factory('AppDataFactorySvc',prepareAppConfig); // prepareConfig()
+
+// angular service calls service function in constructor mode
+// less control in object building
+app.service('AppDataServiceSvc',AppConfig);  // new AppConfig()
 
 // service can be executed in factory function 
 function prepareAppConfig(AppNameSvc){
