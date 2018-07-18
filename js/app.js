@@ -1055,25 +1055,71 @@ app.controller('ContactCtrl', function () {
     
 });
 
-app.controller('HeaderCtrl',function(AppDataSvc,LoggingSvc){
-  this.appTitle = AppDataSvc.name;
-  LoggingSvc();
+// app.controller('HeaderCtrl',function(AppDataSvc,LoggingSvc){
+//   this.appTitle = AppDataSvc.name;
+//   LoggingSvc();
+// });
+
+app.controller('HeaderCtrl',function(AppDataFactorySvc){
+  this.appTitle = AppDataFactorySvc.name;
+  
 });
 
-app.controller('FooterCtrl',function(AppDataSvc,LoggingSvc){
-  this.appTitle = AppDataSvc.name;
-  LoggingSvc();
+// app.controller('FooterCtrl',function(AppDataSvc,LoggingSvc,AppDataFactorySvc){
+//   //this.appTitle = AppDataSvc.name;
+//   this.appTitle = AppDataFactorySvc.name;
+//   LoggingSvc();
+//   console.log(AppDataFactorySvc.company);
+
+// });
+
+app.controller('FooterCtrl',function(AppDataFactorySvc){
+  
+  this.appTitle = AppDataFactorySvc.name;
+  this.buildDate = AppDataFactorySvc.buildDate;
+ 
+
 });
 
 // value service
 //app.value('AppNameSvc','Contact App');
-app.value('AppDataSvc',{
-  name:'Contact App',
-  author:'Koushik',
-  company:'Java Brains',
-  version:1
-});
+// app.value('AppDataSvc',{
+//   name:'Contact App',
+//   author:'Koushik',
+//   company:'Java Brains',
+//   version:1
+// });
+
+app.value('AppDataSvc',prepareAppConfig());
 
 app.value('LoggingSvc',function(){
   console.log('Hello');
 });
+
+app.value('AppNameSvc','New Contact  App');
+
+// factory service requires function
+// app.factory('AppDataFactorySvc',function(){
+//   //return 'Hello from factory Service';
+//   return {
+//     name:'Contact App',
+//     author:'Koushik',
+//     company:'Java Brains',
+//     version:1
+//   };
+// });
+
+app.factory('AppDataFactorySvc',prepareAppConfig);
+
+// service can be executed in factory function 
+function prepareAppConfig(AppNameSvc){
+  var value = {
+    //name:'Contact App',
+    name: AppNameSvc,
+    author:'Koushik',
+    company:'Java Brains',
+    version:1,
+    buildDate: new Date().toDateString()
+  };
+  return value;
+}
